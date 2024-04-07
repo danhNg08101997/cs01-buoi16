@@ -1,5 +1,6 @@
 import pygame
 from models.Constant import Status, Direction
+from models.Bullet import Bullet
 
 class Hero:
     def __init__(self) -> None:
@@ -9,9 +10,16 @@ class Hero:
         self.direction = Direction.right # True phải, False: trái
         self.frame = 0
         self.time_frame_start = 0
-        self.speed = 1
+        self.speed = 3
+        self.lst_bullet:list[Bullet] = []
     
     def draw(self, screen):
+        # Load đạn
+        for bullet in self.lst_bullet:
+            bullet.draw(screen)
+            bullet.move()
+        
+        # Thay đổi trạng thái
         time_frame_current = pygame.time.get_ticks()
         if time_frame_current - self.time_frame_start >= 300:
             self.frame += 1
@@ -43,3 +51,18 @@ class Hero:
             self.rect.x -= self.speed
         elif self.direction == Direction.right:
             self.rect.x += self.speed
+    
+    def attack(self):
+        # Thay đổi trạng thái thành bắn
+        self.status = Status.attack
+        # Tạo ra 1 viên đạn theo hướng của hero
+        new_bullet = Bullet()
+        new_bullet.direction = self.direction
+        if self.direction == Direction.left:
+            new_bullet.rect.x = self.rect.x
+            new_bullet.rect.y = self.rect.y + self.rect.height / 2 - 15
+        elif self.direction == Direction.right:
+            new_bullet.rect.x = self.rect.x + self.rect.width
+            new_bullet.rect.y = self.rect.y + self.rect.height / 2 - 15
+        # Đưa đạn vào list
+        self.lst_bullet.append(new_bullet)

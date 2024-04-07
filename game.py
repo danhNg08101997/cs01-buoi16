@@ -32,6 +32,12 @@ while running:
         # Xử lý thoát game
         if event.type == pygame.QUIT:
             running = False
+        # Start - Hero tấn công
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_j: #j là phím bắn
+                hero.attack()
+        # End - Hero tấn công
+    # Start - Hero di chuyển
     key = pygame.key.get_pressed()
     if key[pygame.K_d]:
         hero.move(Direction.right)
@@ -39,6 +45,7 @@ while running:
         hero.move(Direction.left)
     else:
         hero.status = Status.freeze
+    # End - Hero di chuyển
     
     hero.draw(screen)
     pygame.display.flip()

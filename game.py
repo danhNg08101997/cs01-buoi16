@@ -21,12 +21,17 @@ clock = pygame.time.Clock()
 # Tạo đối tượng hero từ class Hero
 hero = Hero()
 
+# Tạo background
+bg_game = pygame.image.load('./images/bkgd.png')
+bg_game = pygame.transform.scale(bg_game, (bg_game.get_width(), SCREEN_HEIGHT))
+bg_rect = bg_game.get_rect()
+x_scroll = bg_rect.x
+
 # Tạo vòng lặp game
 running = True
 while running:
     # FPS 60s/screen
     clock.tick(60)
-    screen.fill((255,255,255))
     
     for event in pygame.event.get():
         # Xử lý thoát game
@@ -41,12 +46,15 @@ while running:
     key = pygame.key.get_pressed()
     if key[pygame.K_d]:
         hero.move(Direction.right)
-    elif key[pygame.K_a]:
+        x_scroll -= hero.speed/2
+    elif key[pygame.K_a] and x_scroll < 0:
         hero.move(Direction.left)
+        x_scroll += hero.speed/2
     else:
         hero.status = Status.freeze
     # End - Hero di chuyển
     
+    screen.blit(bg_game, (x_scroll, bg_rect.x))
     hero.draw(screen)
     pygame.display.flip()
     

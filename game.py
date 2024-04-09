@@ -20,6 +20,7 @@ clock = pygame.time.Clock()
 
 # Tạo đối tượng hero từ class Hero
 hero = Hero()
+hero.rect.y = SCREEN_HEIGHT - 250
 
 # Tạo background
 bg_game = pygame.image.load('./images/bkgd.png')
@@ -37,19 +38,18 @@ while running:
         # Xử lý thoát game
         if event.type == pygame.QUIT:
             running = False
-        # Start - Hero tấn công
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_j: #j là phím bắn
-                hero.attack()
-        # End - Hero tấn công
     # Start - Hero di chuyển
     key = pygame.key.get_pressed()
-    if key[pygame.K_d]:
+    if key[pygame.K_d] and x_scroll > - (bg_game.get_width() - SCREEN_WIDTH):
         hero.move(Direction.right)
-        x_scroll -= hero.speed/2
+        x_scroll -= hero.speed * 2.5
     elif key[pygame.K_a] and x_scroll < 0:
         hero.move(Direction.left)
-        x_scroll += hero.speed/2
+        x_scroll += hero.speed * 2.5
+    # Start - Hero tấn công
+    elif key[pygame.K_j]: #j là phím bắn
+        hero.attack()
+    # End - Hero tấn công
     else:
         hero.status = Status.freeze
     # End - Hero di chuyển

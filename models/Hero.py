@@ -10,7 +10,7 @@ class Hero:
         self.direction = Direction.right # True phải, False: trái
         self.frame = 0
         self.time_frame_start = 0
-        self.speed = 3
+        self.speed = 5
         self.lst_bullet:list[Bullet] = []
     
     def draw(self, screen):

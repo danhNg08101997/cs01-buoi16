@@ -7,6 +7,8 @@ class Status(enum.Enum):
     move = 'move'
     attack = 'attack'
 
+arr_random_status_soldier = [Status.freeze, Status.attack, Status.move]
+
 # class Status_Hero(enum.Enum):
 #     freeze = {'name': 'freeze', 'count':3}
 #     die = {'name': 'die', 'count':19}

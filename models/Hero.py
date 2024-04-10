@@ -11,13 +11,30 @@ class Hero:
         self.frame = 0
         self.time_frame_start = 0
         self.speed = 5
+        self.live = 5
+        self.score = 0
         self.lst_bullet:list[Bullet] = []
+        # Set up sự kiện nhảy
+        self.speed_jump = -15 #Tốc độ nhảy
+        self.gravity = 0.5 #Trọng lực 5
+        self.jump_velocity = 0 #Vận tốc nhảy ban đầu
+        self.jumping = False #Trạng thái đang nhảy
     
-    def draw(self, screen):
+    def draw(self, screen:pygame.Surface):
+        # Xử lý nhảy
+        if self.jumping:
+            self.jump_velocity += self.gravity
+            self.rect.y += self.jump_velocity
+            # chạm đất
+            if self.rect.y > screen.get_height() - 250:
+                self.jumping = False
+                self.jump_velocity = 0
         # Load đạn
         for bullet in self.lst_bullet:
             bullet.draw(screen)
             bullet.move()
+            if bullet.rect.x > screen.get_width() or bullet.rect.x < 0:
+                self.lst_bullet.remove(bullet)
         
         # Thay đổi trạng thái
         time_frame_current = pygame.time.get_ticks()
@@ -25,7 +42,19 @@ class Hero:
             self.frame += 1
             self.time_frame_start = time_frame_current
         self.update_status()
+        # render mạng lên vị trí màn hình
+        f_game = pygame.font.Font(None,48)
+        title_live = f_game.render(f'Live: {self.live}', True, 'red')
+        # Render điểm
+        title_score = f_game.render(f'Score: {self.score}', True, 'red')
+        screen.blit(title_live, (0,0))
+        screen.blit(title_score, (screen.get_width() - title_score.get_width(),0))
         screen.blit(self.image, self.rect)
+    
+    def jump(self):
+        if not self.jumping:
+            self.jumping = True
+            self.jump_velocity = self.speed_jump
     
     def update_status(self):
         img_source = ''

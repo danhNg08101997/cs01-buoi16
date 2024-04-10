@@ -2,11 +2,11 @@ import pygame
 from models.Constant import Direction
 
 class Bullet:
-    def __init__(self) -> None:
-        self.image = pygame.image.load('./images/bullet/0.png')
+    def __init__(self, bullet_type = 0, speed=10) -> None:
+        self.image = pygame.image.load(f'./images/bullet/{bullet_type}.png')
         self.rect = self.image.get_rect()
         self.direction = Direction.left
-        self.speed = 10
+        self.speed = speed
     
     def draw(self, screen):
         screen.blit(self.image, self.rect)

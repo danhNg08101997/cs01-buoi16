@@ -18,7 +18,7 @@ class Hero:
         self.speed_jump = -15 #Tốc độ nhảy
         self.gravity = 0.5 #Trọng lực 5
         self.jump_velocity = 0 #Vận tốc nhảy ban đầu
-        self.jumping = False #Trạng thái đang nhảy
+        self.jumping = True #Trạng thái đang nhảy
     
     def draw(self, screen:pygame.Surface):
         # Xử lý nhảy

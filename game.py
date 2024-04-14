@@ -70,7 +70,7 @@ while running:
     if current_time_render_soldier - time_render_soldier_start >= 5000:
         # Tạo lính
         new_soldier = Soldier()
-        new_soldier.rect.y = SCREEN_HEIGHT -250
+        new_soldier.rect.y = SCREEN_HEIGHT - 250
         new_soldier.rect.x = random.randint(0, 2000)
         if new_soldier.rect.x > hero.rect.x:
             new_soldier.direction = Direction.left

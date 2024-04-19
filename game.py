@@ -54,7 +54,7 @@ while running:
         hero.move(Direction.left)
         x_scroll += hero.speed * 2.5
     # Start - Hero tấn công
-    elif key[pygame.K_j]: #jjj là phím bắn
+    elif key[pygame.K_j]: #j là phím bắn
         hero.attack()
     # End - Hero tấn công
     else:
@@ -65,6 +65,7 @@ while running:
     
     # Render background
     screen.blit(bg_game, (x_scroll, bg_rect.x))
+    
     # Random soldier ngẫu nhiên xuất hiện
     current_time_render_soldier = pygame.time.get_ticks()
     if current_time_render_soldier - time_render_soldier_start >= 5000:
